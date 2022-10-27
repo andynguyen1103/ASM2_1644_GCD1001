@@ -7,6 +7,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'ATN Shop Management' });
 });
 
+router.get('/login',function(req,res,next){
+  res.render('login', {title: 'Login',
+                      message: ''})
+})
+
 /* POST home page */
 router.post('/',function(req,res,next){
   res.render('login', {title: 'Login',
@@ -18,14 +23,15 @@ router.post('/login', async function(req,res,next){
   let username = req.body.username;
   let password = req.body.password;
  // console.log(username+":"+password);
-  session = req.session;
+  var session = req.session;
 
   let [authenticated, shop_id, role] = await authen(username, password);
   if(authenticated){
-    // session.user_id = username;
-    // session.shop_id = shop_id;
-    // session.role = role;
-    if(role == 'user'){
+    session.user_id = username;
+    session.shop_id = shop_id;
+    session.role = role;
+    console.log(session.user_id,session.shop_id,session.role);
+    if(role == 'shop'){
       res.redirect('/users');
     }
     if(role == 'director'){
@@ -41,7 +47,7 @@ router.post('/login', async function(req,res,next){
 
 router.get('/logout', function(req, res, next) {
   req.session.destroy();
-  res.render('index', {title: 'ATN Shop Management'});
+  res.redirect('/');
 });
 
 module.exports = router;
