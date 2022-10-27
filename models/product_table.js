@@ -17,7 +17,7 @@ async function display_products(shop_id,session){
     // pg_conn.end();
     // init the table_string, with the table tag
     let table_string = 
-        `<table border='1' id= 'product_table'>
+        `<table border='1'>
             <tr>`;
     //display all headers of table
     let num_fields = data.fields.length;

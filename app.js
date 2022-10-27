@@ -14,9 +14,9 @@ var app = express();
 //Setting up session information
 app.use(session({
   secret: 'long_string_for_session_sercure',
-  resave: true,
-  saveUninitialized: true,
-  cookie: {maxAge:6000}
+  resave: false,
+  saveUninitialized: false,
+  cookie: {maxAge:60000*60*24}
 }))
 
 // view engine setup
